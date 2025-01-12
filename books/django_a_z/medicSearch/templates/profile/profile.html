@@ -26,8 +26,13 @@
                     <li class="list-group-item">Nascimento: {{profile.user.birthday | date:'d/m/Y' | default:"Sem data"}}</li>
                     {% if profile.role == 2 %}
                     <li class="list-group-item">Nota: {{ profile.show_scoring_average }}</li>
-                    <li class="list-group-item">Especialidade: {{ profile.specialties.all | join:", " }}</li>
-                    {% endif %}                    
+                    <li class="list-group-item">Especialidades: {{ profile.specialties.all | join:", " }}</li>
+                    {% endif %}
+                    {% if profile == 2 and request.user.is_authenticated %}
+                    <li class="list-group-item">
+                        <a class="btn btn-warning" href={% url 'rate-medic' profile.user.id %}>Avaliar <i class="fa fa-star"></i></a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
             {% if profile.role == 1 or profile.role == 3 %}
